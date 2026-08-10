@@ -1,5 +1,7 @@
 package id.setiyadinamika.pilot.ticket;
 
+import java.util.Locale;
+
 public final class TicketPriorityClassifier {
   private enum Severity {
     LOW,
@@ -35,7 +37,8 @@ public final class TicketPriorityClassifier {
       throw new IllegalArgumentException(field + " is required");
     }
     try {
-      return Enum.valueOf(type, value);
+      String normalized = value.trim().toUpperCase(Locale.ROOT).replace('-', '_');
+      return Enum.valueOf(type, normalized);
     } catch (IllegalArgumentException error) {
       throw new IllegalArgumentException("unsupported " + field + ": " + value, error);
     }
